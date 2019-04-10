@@ -49,7 +49,7 @@
                 // Show formatted JSON on webpage.
 				<!-- var json = JSON.stringify(data, null, 2); -->
 				//var desc = json.description;
-                var desc = data.description;
+                var desc = data.description.captions[0].text;
 				console.log('value json:', data);
 				$("#responseTextArea").val(desc);
             })
