@@ -47,7 +47,9 @@
         })
             .done(function(data) {
                 // Show formatted JSON on webpage.
-                $("#responseTextArea").val(JSON.stringify(data, null, 2));
+				var json = JSON.stringify(data, null, 2));
+				var desc = json.description.captions[0].text;
+                $("#responseTextArea").val(desc);
             })
             .fail(function(jqXHR, textStatus, errorThrown) {
                 // Display error message.
