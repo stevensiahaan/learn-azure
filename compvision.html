@@ -47,10 +47,11 @@
         })
             .done(function(data) {
                 // Show formatted JSON on webpage.
-				var json = JSON.stringify(data, null, 2);
+				<!-- var json = JSON.stringify(data, null, 2); -->
 				//var desc = json.description;
-                console.log('value json:', json);
-				$("#responseTextArea").val(json);
+                var desc = data.description;
+				console.log('value json:', data);
+				$("#responseTextArea").val(desc);
             })
             .fail(function(jqXHR, textStatus, errorThrown) {
                 // Display error message.
