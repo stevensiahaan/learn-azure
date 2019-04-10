@@ -51,7 +51,7 @@
 				//var desc = json.description;
                 var desc = data.description.captions[0].text;
 				console.log('value json:', data);
-				$("#responseTextArea").val(desc);
+				$("#responseTextArea").val(JSON.stringify(desc, null, 2));
             })
             .fail(function(jqXHR, textStatus, errorThrown) {
                 // Display error message.
