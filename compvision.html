@@ -48,7 +48,8 @@
             .done(function(data) {
                 // Show formatted JSON on webpage.
 				var json = JSON.stringify(data, null, 2);
-				var desc = json.description.captions[0].text;
+				Con
+				var desc = json.description;
                 $("#responseTextArea").val(desc);
             })
             .fail(function(jqXHR, textStatus, errorThrown) {
