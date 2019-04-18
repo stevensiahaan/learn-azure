@@ -46,11 +46,11 @@ $createContainerOptions->setPublicAccess(PublicAccessType::CONTAINER_AND_BLOBS);
     $createContainerOptions->addMetaData("key2", "value2");
 
     $containerName = "blockblobssteven";
-	$fileToUpload = $_POST['fileToUpload'];
+	$fileToUpload = "HelloWorld.txt";
 	
 	try {
         // Create container.
-        $blobClient->createContainerIfNotExists($containerName, $createContainerOptions);
+        $blobClient->createContainer($containerName, $createContainerOptions);
 
         // Getting local file so that we can upload it to Azure
         $myfile = fopen($fileToUpload, "w") or die("Unable to open file!");
