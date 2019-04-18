@@ -46,7 +46,7 @@ $createContainerOptions->setPublicAccess(PublicAccessType::CONTAINER_AND_BLOBS);
     $createContainerOptions->addMetaData("key2", "value2");
 
     $containerName = "blockblobssteven";
-	$fileToUpload = "HelloWorld.txt";
+	$fileToUpload = $_FILES['fileToUpload'];
 	
 	try {
         // Create container.
