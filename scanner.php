@@ -59,7 +59,7 @@ $createContainerOptions->setPublicAccess(PublicAccessType::CONTAINER_AND_BLOBS);
 
         //Upload blob
         $blobClient->createBlockBlob($containerName, $fileToUpload, $myFile);
-        header("Location: analyze.php");
+        header("Location: scanner.php");
     }
     catch(ServiceException $e){
         // Handle exception based on error codes and messages.
