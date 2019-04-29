@@ -47,7 +47,8 @@ $createContainerOptions->setPublicAccess(PublicAccessType::CONTAINER_AND_BLOBS);
 
     $containerName = "blockblobssteven";
 	$fileToUpload = $_FILES['fileToUpload'];
-	
+    
+    if(isset($_POST["submit"])) {
 	try {
         // Create container.
         $blobClient->createContainer($containerName, $createContainerOptions);
@@ -82,6 +83,7 @@ $createContainerOptions->setPublicAccess(PublicAccessType::CONTAINER_AND_BLOBS);
         $error_message = $e->getMessage();
         echo $code.": ".$error_message."<br />";
     }
+}
  
  ?>
  
