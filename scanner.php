@@ -24,6 +24,7 @@
        <input type="submit" name="load_data" value="Load Data" />
  </form>
 
+
  
  <?php
 require_once 'vendor/autoload.php';
@@ -76,6 +77,27 @@ $createContainerOptions->setPublicAccess(PublicAccessType::CONTAINER_AND_BLOBS);
         $code = $e->getCode();
         $error_message = $e->getMessage();
         echo $code.": ".$error_message."<br />";
+    }
+
+    $listBlobsOptions = new ListBlobsOptions();
+    $listBlobsOptions->setPrefix("");
+    $result = $blobClient->listBlobs($containerName, $listBlobsOptions);
+
+    try {
+       
+        echo "<h2>People who are registered:</h2>";
+        echo "<table>";
+        echo "<tr><th>Name</th>";
+        echo "<th>URL</th></tr>";
+
+        $resultBlob = $result->getBlobs(); 
+        foreach($resultBlob as $blob) {
+            echo "<tr><td>".$resultBlob->getName()."</td>";
+            echo "<td>".$resultBlob->getUrl()."</td></tr>";
+        }
+        echo "</table>";
+    } catch(Exception $e) {
+        echo "Failed: " . $e;
     }
 }
  
