@@ -36,7 +36,6 @@ use MicrosoftAzure\Storage\Blob\Models\CreateContainerOptions;
 use MicrosoftAzure\Storage\Blob\Models\PublicAccessType;
 
 $connectionString = "DefaultEndpointsProtocol=https;AccountName=stevenfolder;AccountKey=XF3yd6/TwQk68xkSA5/xpMHg9QH9ZHNp/MCwOV7y/1bPYhg04cemi65PcwKB4RlMU+NNx6y9tSQD8jfs2hZglA==;EndpointSuffix=core.windows.net";
-// Create blob client.
 $blobClient = BlobRestProxy::createBlobService($connectionString);
 $createContainerOptions = new CreateContainerOptions();
 $createContainerOptions->setPublicAccess(PublicAccessType::CONTAINER_AND_BLOBS);
@@ -45,27 +44,21 @@ $createContainerOptions->setPublicAccess(PublicAccessType::CONTAINER_AND_BLOBS);
     $createContainerOptions->addMetaData("key1", "value1");
     $createContainerOptions->addMetaData("key2", "value2");
 
-    $containerName = "blockblobs".generateRandomString();
-	$fileToUpload = $_FILES['fileToUpload'];
+    $containerName = "blockblobssteven";
 
     if(isset($_POST["submit"])) {
 	try {
-        // Create container.
-        $blobClient->createContainer($containerName, $createContainerOptions);
-
+        $fileToUpload = $_FILES['fileToUpload']["name"];
         // Getting local file so that we can upload it to Azure
-        $myfile = fopen($fileToUpload, "w") or die("Unable to open file!");
-        fclose($myfile);
-        
+        $myFile = fopen($fileToUpload, "r") or die("Unable to open file!");
+
         # Upload file as a block blob
         echo "Uploading BlockBlob: ".PHP_EOL;
         echo $fileToUpload;
-        echo "<br />";
-        
-        $content = fopen($fileToUpload, "r");
+        echo "<br />";   
 
         //Upload blob
-        $blobClient->createBlockBlob($containerName, $fileToUpload, $content);
+        $blobClient->createBlockBlob($containerName, $fileToUpload, $myFile);
     }
     catch(ServiceException $e){
         // Handle exception based on error codes and messages.
