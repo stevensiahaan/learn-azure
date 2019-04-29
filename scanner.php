@@ -19,7 +19,7 @@
  <h1>Scan here!</h1>
  <p>Upload your image, then click <strong>Analyze</strong> to analyze the image.</p>
  <form method="post" action="scanner.php" enctype="multipart/form-data" >
-       Select image to upload: <input type="file" name="fileToUpload" id="fileToUpload"> </br></br>
+       Select image to upload: <input type="file" name="fileToUpload" accept=".jpeg,.jpg,.png"> </br></br>
        <input type="submit" name="submit" value="Analyze" />
        <input type="submit" name="load_data" value="Load Data" />
  </form>
@@ -53,14 +53,14 @@ $createContainerOptions->setPublicAccess(PublicAccessType::CONTAINER_AND_BLOBS);
         // Getting local file so that we can upload it to Azure
         $myFile = fopen($_FILES["fileToUpload"]["tmp_name"], "r");
 
+        //Upload blob
+        $blobClient->createBlockBlob($containerName, $fileToUpload, $myFile);
+        header("Location: scanner.php");
+
         # Upload file as a block blob
         echo "Uploaded BlockBlob: ".PHP_EOL;
         echo $fileToUpload;
         echo "<br />";   
-
-        //Upload blob
-        $blobClient->createBlockBlob($containerName, $fileToUpload, $myFile);
-        header("Location: scanner.php");
     }
     catch(ServiceException $e){
         // Handle exception based on error codes and messages.
@@ -77,27 +77,6 @@ $createContainerOptions->setPublicAccess(PublicAccessType::CONTAINER_AND_BLOBS);
         $code = $e->getCode();
         $error_message = $e->getMessage();
         echo $code.": ".$error_message."<br />";
-    }
-
-    $listBlobsOptions = new ListBlobsOptions();
-    $listBlobsOptions->setPrefix("");
-    $result = $blobClient->listBlobs($containerName, $listBlobsOptions);
-
-    try {
-       
-        echo "<h2>People who are registered:</h2>";
-        echo "<table>";
-        echo "<tr><th>Name</th>";
-        echo "<th>URL</th></tr>";
-
-        $resultBlob = $result->getBlobs(); 
-        foreach($resultBlob as $blob) {
-            echo "<tr><td>".$resultBlob->getName()."</td>";
-            echo "<td>".$resultBlob->getUrl()."</td></tr>";
-        }
-        echo "</table>";
-    } catch(Exception $e) {
-        echo "Failed: " . $e;
     }
 }
  
