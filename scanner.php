@@ -48,17 +48,18 @@ $createContainerOptions->setPublicAccess(PublicAccessType::CONTAINER_AND_BLOBS);
 
     if(isset($_POST["submit"])) {
 	try {
-        $fileToUpload = $_FILES['fileToUpload']["name"];
+        $fileToUpload = strtolower($_FILES["fileToUpload"]["name"]);
         // Getting local file so that we can upload it to Azure
-        $myFile = fopen($fileToUpload, "r") or die("Unable to open file!");
+        $myFile = fopen($_FILES["fileToUpload"]["tmp_name"], "r");
 
         # Upload file as a block blob
-        echo "Uploading BlockBlob: ".PHP_EOL;
+        echo "Uploaded BlockBlob: ".PHP_EOL;
         echo $fileToUpload;
         echo "<br />";   
 
         //Upload blob
         $blobClient->createBlockBlob($containerName, $fileToUpload, $myFile);
+        header("Location: analyze.php");
     }
     catch(ServiceException $e){
         // Handle exception based on error codes and messages.
