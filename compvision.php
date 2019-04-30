@@ -84,5 +84,10 @@ Image to analyze:
         <img id="sourceImage" width="400" />
     </div>
 </div>
+
+
+<?php
+echo $_GET['link']; 
+?>
 </body>
 </html>

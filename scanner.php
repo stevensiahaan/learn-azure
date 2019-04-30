@@ -20,7 +20,7 @@
  <p>Upload your image, then click <strong>Analyze</strong> to analyze the image.</p>
  <form method="post" action="scanner.php" enctype="multipart/form-data" >
        Select image to upload: <input type="file" name="fileToUpload" accept=".jpeg,.jpg,.png"> </br></br>
-       <input type="submit" name="submit" value="Analyze" />
+       <input type="submit" name="submit" value="Upload" />
  </form>
 
 
@@ -85,7 +85,8 @@ if(isset($_POST["submit"])) {
        $result = $blobClient->listBlobs($containerName, $listBlobsOptions);
        foreach ($result->getBlobs() as $blob)
        {
-           echo "Nama File: ".$blob->getName()."----> URL : ".$blob->getUrl()."<br />";
+           echo "Nama File: ".$blob->getName()."----> URL : ".$blob->getUrl();
+           echo "<a href='compvision.php?link=".$blob->getUrl()."'>Analyze</a><br />";
        }
    
        $listBlobsOptions->setContinuationToken($result->getContinuationToken());
