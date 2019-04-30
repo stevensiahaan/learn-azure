@@ -68,8 +68,8 @@
 Enter the URL to an image, then click the <strong>Analyze image</strong> button.
 <br><br>
 Image to analyze:
-<input type="text" name="inputImage" id="inputImage" value="https://timedotcom.files.wordpress.com/2018/09/bill-gates-africa.jpg"/>
-<button onclick="processImage()">Analyze image</button>
+<input type="text" name="inputImage" id="inputImage" value=$url_image/>
+processImage();
 <br><br>
 <div id="wrapper" style="width:1020px; display:table;">
     <div id="jsonOutput" style="width:600px; display:table-cell;">
@@ -87,7 +87,7 @@ Image to analyze:
 
 
 <?php
-echo $_GET['link']; 
+$url_image = $_GET['link'];
 ?>
 </body>
 </html>

@@ -86,7 +86,7 @@ if(isset($_POST["submit"])) {
        foreach ($result->getBlobs() as $blob)
        {
            echo "Nama File: ".$blob->getName()."----> URL : ".$blob->getUrl();
-           echo "<a href='compvision.php?link=".$blob->getUrl()."'>Analyze</a><br />";
+           echo "<a target='_blank' rel='noopener noreferrer' href='compvision.php?link=".$blob->getUrl()."'>  Analyze</a><br />";
        }
    
        $listBlobsOptions->setContinuationToken($result->getContinuationToken());
