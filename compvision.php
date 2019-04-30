@@ -30,7 +30,7 @@
             "language": "en",
         };
         // Display the image.
-        var sourceImageUrl = document.getElementById("inputImage").value;
+        var sourceImageUrl = $url_image;
         document.querySelector("#sourceImage").src = sourceImageUrl;
         // Make the REST API call.
         $.ajax({
@@ -62,14 +62,16 @@
                 alert(errorString);
             });
     };
+
+    window.onload=function(){
+        processImage();
+    }
 </script>
 
 <h1>Analyze image:</h1>
 Enter the URL to an image, then click the <strong>Analyze image</strong> button.
 <br><br>
-Image to analyze:
-<input type="text" name="inputImage" id="inputImage" value=$url_image/>
-processImage();
+Image to analyze: <?php echo $url_image ?>
 <br><br>
 <div id="wrapper" style="width:1020px; display:table;">
     <div id="jsonOutput" style="width:600px; display:table-cell;">
