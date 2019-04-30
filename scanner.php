@@ -57,26 +57,21 @@ $containerName = "blockblobssteven";
         # Upload file as a block blob
         echo "Uploaded BlockBlob: ".PHP_EOL;
         echo $file_name;
-        echo "<br />";   
+        echo "<br /><br /><br />";   
 
          // List blobs.
          $listBlobsOptions = new ListBlobsOptions();
          echo "These are the blobs present in the container: ";
+         echo "<br />";   
          do{
              $result = $blobClient->listBlobs($containerName, $listBlobsOptions);
              foreach ($result->getBlobs() as $blob)
              {
-                 echo $blob->getName().": ".$blob->getUrl()."<br />";
+                 echo "Nama File: ".$blob->getName().". URL : ".$blob->getUrl()."<br />";
              }
          
              $listBlobsOptions->setContinuationToken($result->getContinuationToken());
          } while($result->getContinuationToken());
-         echo "<br />";
-         // Get blob.
-         echo "This is the content of the blob uploaded: ";
-         $blob = $blobClient->getBlob($containerName, $file_name);
-     
-         fpassthru($blob->getContentStream());
          echo "<br />";
     }
     catch(ServiceException $e){
