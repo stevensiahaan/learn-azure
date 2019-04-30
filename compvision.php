@@ -5,11 +5,7 @@
     <script src="/jquery.min.js"></script>
 </head>
 <body>
-
-<?php
-echo $_GET['link'];
-?>
-
+    
 <script type="text/javascript">
     function processImage() {
         // **********************************************
