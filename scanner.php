@@ -21,7 +21,6 @@
  <form method="post" action="scanner.php" enctype="multipart/form-data" >
        Select image to upload: <input type="file" name="fileToUpload" accept=".jpeg,.jpg,.png"> </br></br>
        <input type="submit" name="submit" value="Analyze" />
-       <input type="submit" name="load_data" value="Load Data" />
  </form>
 
 
@@ -49,17 +48,16 @@ $createContainerOptions->setPublicAccess(PublicAccessType::CONTAINER_AND_BLOBS);
 
     if(isset($_POST["submit"])) {
 	try {
-        $fileToUpload = strtolower($_FILES["fileToUpload"]["name"]);
+        $file_name = $_FILES['fileToUpload']['name'];
+        $file_tmp =$_FILES['fileToUpload']['tmp_name'];
         // Getting local file so that we can upload it to Azure
-        $myFile = fopen($_FILES["fileToUpload"]["tmp_name"], "r");
+        $content = fopen($file_tmp, "r");
 
         //Upload blob
-        $blobClient->createBlockBlob($containerName, $fileToUpload, $myFile);
-        header("Location: scanner.php");
-
+        $blobClient->createBlockBlob($containerName, $file_name, $content);
         # Upload file as a block blob
         echo "Uploaded BlockBlob: ".PHP_EOL;
-        echo $fileToUpload;
+        echo $file_name;
         echo "<br />";   
     }
     catch(ServiceException $e){
