@@ -6,6 +6,10 @@
 </head>
 <body>
 
+<?php
+echo $_GET['link'];
+?>
+
 <script type="text/javascript">
     function processImage() {
         // **********************************************
@@ -30,7 +34,7 @@
             "language": "en",
         };
         // Display the image.
-        var sourceImageUrl = $url_image;
+        var sourceImageUrl = " <?php echo $_GET['link'] ?>";
         document.querySelector("#sourceImage").src = sourceImageUrl;
         // Make the REST API call.
         $.ajax({
@@ -69,10 +73,9 @@
 </script>
 
 <h1>Analyze image:</h1>
-Enter the URL to an image, then click the <strong>Analyze image</strong> button.
 <br><br>
-Image to analyze: <?php echo $url_image ?>
-<br><br>
+Image to analyze: <?php echo $_GET['link'] ?>
+<br><br> 
 <div id="wrapper" style="width:1020px; display:table;">
     <div id="jsonOutput" style="width:600px; display:table-cell;">
         Response:
@@ -87,9 +90,5 @@ Image to analyze: <?php echo $url_image ?>
     </div>
 </div>
 
-
-<?php
-$url_image = $_GET['link'];
-?>
 </body>
 </html>
