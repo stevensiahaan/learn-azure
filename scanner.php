@@ -45,7 +45,7 @@ $createContainerOptions->addMetaData("key1", "value1");
 $createContainerOptions->addMetaData("key2", "value2");
 $containerName = "blockblobssteven";
 
-    if(isset($_POST["submit"])) {
+if(isset($_POST["submit"])) {
 	try {
         $file_name = $_FILES['fileToUpload']['name'];
         $file_tmp =$_FILES['fileToUpload']['tmp_name'];
@@ -59,20 +59,6 @@ $containerName = "blockblobssteven";
         echo $file_name;
         echo "<br /><br /><br />";   
 
-         // List blobs.
-         $listBlobsOptions = new ListBlobsOptions();
-         echo "These are the blobs present in the container: ";
-         echo "<br />";   
-         do{
-             $result = $blobClient->listBlobs($containerName, $listBlobsOptions);
-             foreach ($result->getBlobs() as $blob)
-             {
-                 echo "Nama File: ".$blob->getName().". URL : ".$blob->getUrl()."<br />";
-             }
-         
-             $listBlobsOptions->setContinuationToken($result->getContinuationToken());
-         } while($result->getContinuationToken());
-         echo "<br />";
     }
     catch(ServiceException $e){
         // Handle exception based on error codes and messages.
@@ -91,7 +77,20 @@ $containerName = "blockblobssteven";
         echo $code.": ".$error_message."<br />";
     }
 }
- 
+   // List blobs.
+   $listBlobsOptions = new ListBlobsOptions();
+   echo "These are the blobs present in the container: ";
+   echo "<br />";   
+   do{
+       $result = $blobClient->listBlobs($containerName, $listBlobsOptions);
+       foreach ($result->getBlobs() as $blob)
+       {
+           echo "Nama File: ".$blob->getName()."----> URL : ".$blob->getUrl()."<br />";
+       }
+   
+       $listBlobsOptions->setContinuationToken($result->getContinuationToken());
+   } while($result->getContinuationToken());
+   echo "<br />";
  ?>
  
   </body>
