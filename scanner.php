@@ -40,11 +40,10 @@ $blobClient = BlobRestProxy::createBlobService($connectionString);
 $createContainerOptions = new CreateContainerOptions();
 $createContainerOptions->setPublicAccess(PublicAccessType::CONTAINER_AND_BLOBS);
 
-    // Set container metadata.
-    $createContainerOptions->addMetaData("key1", "value1");
-    $createContainerOptions->addMetaData("key2", "value2");
-
-    $containerName = "blockblobssteven";
+// Set container metadata.
+$createContainerOptions->addMetaData("key1", "value1");
+$createContainerOptions->addMetaData("key2", "value2");
+$containerName = "blockblobssteven";
 
     if(isset($_POST["submit"])) {
 	try {
@@ -59,6 +58,26 @@ $createContainerOptions->setPublicAccess(PublicAccessType::CONTAINER_AND_BLOBS);
         echo "Uploaded BlockBlob: ".PHP_EOL;
         echo $file_name;
         echo "<br />";   
+
+         // List blobs.
+         $listBlobsOptions = new ListBlobsOptions();
+         echo "These are the blobs present in the container: ";
+         do{
+             $result = $blobClient->listBlobs($containerName, $listBlobsOptions);
+             foreach ($result->getBlobs() as $blob)
+             {
+                 echo $blob->getName().": ".$blob->getUrl()."<br />";
+             }
+         
+             $listBlobsOptions->setContinuationToken($result->getContinuationToken());
+         } while($result->getContinuationToken());
+         echo "<br />";
+         // Get blob.
+         echo "This is the content of the blob uploaded: ";
+         $blob = $blobClient->getBlob($containerName, $file_name);
+     
+         fpassthru($blob->getContentStream());
+         echo "<br />";
     }
     catch(ServiceException $e){
         // Handle exception based on error codes and messages.
